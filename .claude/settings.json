@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -E \"\\\\.md$|\\\\.jpg$\")",
+      "Bash(cd \"d:\\\\ExpenseBillManagementSystem\" && mkdir -p electron)",
+      "Bash(npm --version)",
+      "Bash(py -0)",
+      "Bash(py -3.11 --version)",
+      "Bash(python3.11 --version)",
+      "Bash(winget --version)",
+      "Bash(winget search *)",
+      "Bash(winget install *)",
+      "Bash(py -3.11 -m venv venv)",
+      "Bash(./venv/Scripts/python.exe --version)",
+      "Bash(./venv/Scripts/python.exe -m pip install --upgrade pip)",
+      "Bash(./venv/Scripts/python.exe -m pip install -r requirements.txt)",
+      "Bash(./venv/Scripts/python.exe -c \"from app.main import app; print\\('FastAPI app loaded:', app.title, app.version\\); print\\('routes:', [r.path for r in app.routes if hasattr\\(r, 'path'\\)]\\)\")"
+    ],
+    "additionalDirectories": [
+      "d:\\ExpenseBillManagementSystem"
+    ]
+  }
+}
