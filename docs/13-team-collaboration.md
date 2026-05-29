@@ -98,6 +98,25 @@ W5: 联调 → 权限测试 → 打印 → Bug 修复 → 部署文档
 - API 调用统一走 api/ 封装层
 - ESLint + Prettier 格式化
 
+## 八、多 AI 会话协作机制（异步交接班）
+
+本项目由三个 AI 会话分工，它们**无法实时通话**，只能通过共享文件交接班：
+
+| 代号 | 工具 | 职责 |
+|------|------|------|
+| ARCH | Claude (Kiro) | 架构、契约、拆任务、评审 |
+| FE | CodeWhy | 前端实现 |
+| BE | AwerCoder | 后端实现 |
+
+协作中枢在 [collab/](collab/)，三个文件构成完整痕迹：
+- **[collab/BOARD.md](collab/BOARD.md)** — 任务看板，谁在做什么、状态、阻塞。
+- **[collab/LOG.md](collab/LOG.md)** — 工作流水日志，只追加，留时间痕迹。
+- **[collab/CONTRACTS.md](collab/CONTRACTS.md)** — 接口契约对齐区，前后端唯一事实来源。
+
+**每个 AI 会话开工先读 [collab/README.md](collab/README.md)，遵守开工/收工各三件事的纪律。**
+
+**时间格式规范**：所有协作文件（LOG/BOARD/CONTRACTS）中的时间戳统一为 `YYYY-MM-DD HH:MM:SS`（精确到秒），便于追溯和排序。
+
 ---
 
-**最后更新**: 2026-05-29
+**最后更新**: 2026-05-29 18:41:56

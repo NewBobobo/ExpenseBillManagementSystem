@@ -374,6 +374,17 @@ def generate_pdf(html: str, output_path: str):
 3. **缓存**: 相同单据的 PDF 缓存,避免重复生成
 4. **定时清理**: 定时清理临时 PDF 文件
 
+### 浏览器内核选择 (待 W4 实现时确认)
+
+Playwright 需要一个浏览器内核来渲染。两种方式:
+
+| 方式 | 配置 | 优点 | 缺点 |
+|------|------|------|------|
+| 自带 Chromium | `p.chromium.launch()` | 各环境版本一致,可移植性好 | 需 `playwright install chromium` 下载约 150MB |
+| 系统 Edge/Chrome | `p.chromium.launch(channel="msedge")` | 复用系统已装浏览器,无需下载 | 依赖目标机器已装 Edge,Linux 服务器需额外处理 |
+
+**当前状态 (2026-05-29)**: Playwright Python 包已随依赖安装,但**未下载浏览器内核**。开发骨架阶段用不到,推迟到 W4 PDF 导出开发时再决定。Web 生产部署到 Linux 时,推荐用自带 Chromium (或 Docker 镜像内置),保证一致性。
+
 ### 后果
 
 - ✅ 样式还原度高,用户体验好
