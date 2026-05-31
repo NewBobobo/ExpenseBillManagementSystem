@@ -19,7 +19,9 @@ from app.db.base import Base  # noqa: E402
 import app.models  # noqa: E402,F401  触发模型注册
 
 config = context.config
-config.set_main_option("sqlalchemy.url", settings.DATABASE_URL)
+# 注意：configparser 用 % 作插值符号，密码里的 %40 等转义字符需写成 %% 才能安全塞进 ini。
+# 读取时 configparser 会自动还原成单个 %，所以 engine 拿到的仍是正确的连接串。
+config.set_main_option("sqlalchemy.url", settings.DATABASE_URL.replace("%", "%%"))
 
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
