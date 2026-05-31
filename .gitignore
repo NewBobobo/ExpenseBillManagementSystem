@@ -46,6 +46,9 @@ electron/out/
 *.swo
 *~
 
+# ===== Claude Code (本地工具配置,权限白名单随会话累积,可能含敏感命令,不入库) =====
+.claude/
+
 # ===== OS =====
 .DS_Store
 Thumbs.db
