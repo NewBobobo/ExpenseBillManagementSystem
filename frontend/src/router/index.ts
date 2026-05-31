@@ -30,10 +30,22 @@ const routes: RouteRecordRaw[] = [
         meta: { title: '工作台', icon: 'Monitor' },
       },
       {
+        path: 'expense-items',
+        name: 'expense-items',
+        component: () => import('@/views/expense-items/ExpenseItemList.vue'),
+        meta: { title: '费用项字典', icon: 'Files' },
+      },
+      {
         path: 'orgs',
         name: 'orgs',
         component: () => import('@/views/orgs/OrgTree.vue'),
         meta: { title: '机构管理', icon: 'OfficeBuilding', roles: ['admin'] },
+      },
+      {
+        path: 'users',
+        name: 'users',
+        component: () => import('@/views/users/UserList.vue'),
+        meta: { title: '用户管理', icon: 'User', roles: ['admin'] },
       },
     ],
   },

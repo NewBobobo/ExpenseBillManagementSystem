@@ -3,6 +3,7 @@ FastAPI 依赖：从 Authorization: Bearer <token> 解析当前用户。
 
 未登录/Token 失效 → 抛 BizError(40100)
 账号已停用 → 抛 BizError(40301)
+非 admin 角色 → 抛 BizError(40300)
 """
 from typing import Optional
 
@@ -47,3 +48,12 @@ def get_current_user(
     if not user.is_active:
         raise BizError(40301, "账号已停用")
     return user
+
+
+def require_admin(current_user: User = Depends(get_current_user)) -> User:
+    """
+    要求当前用户角色为 admin，否则抛 BizError(40300)。
+    """
+    if current_user.role != "admin":
+        raise BizError(40300, "无权限")
+    return current_user

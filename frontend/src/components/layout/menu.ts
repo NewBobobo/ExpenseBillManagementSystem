@@ -34,7 +34,7 @@ export const MENU: MenuItem[] = [
     title: '基础数据',
     icon: 'Files',
     children: [
-      { index: '/expense-items', title: '费用项字典', disabled: true },
+      { index: '/expense-items', title: '费用项字典' },
       { index: '/seals', title: '公章管理', disabled: true },
     ],
   },
@@ -53,7 +53,7 @@ export const MENU: MenuItem[] = [
     roles: ['admin'],
     children: [
       { index: '/orgs', title: '机构树' },
-      { index: '/users', title: '用户管理', disabled: true },
+      { index: '/users', title: '用户管理' },
     ],
   },
   {

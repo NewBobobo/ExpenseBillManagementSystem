@@ -130,12 +130,19 @@
 请求体（均可选）：`{ "real_name": "张三丰", "role": "admin", "is_active": true }`
 - 不允许改 username / org_id。成功 data：更新后用户对象。
 
-**§6.4 PUT /api/users/{id}/password** — 改密码
-- admin 重置他人：`{ "new_password": "xxx" }`；本人改密：`{ "old_password": "xxx", "new_password": "yyy" }`（须校验旧密码）。
+**§6.4 PUT /api/users/{id}/password** — 修改密码 🔄变更(2026-06-01)
+- admin 改他人：`{ "new_password": "xxx" }`；本人改密：`{ "old_password": "xxx", "new_password": "yyy" }`（须校验旧密码）。
 - 成功 data：null。错误：`40101` 旧密码错；`40300` 越权。
+- 前端按钮文案为「修改密码」（管理员手动输入新密码）。
 
 **§6.5 DELETE /api/users/{id}** — 软删除（admin）
 - 实为设 `is_active=false`（不物理删，保留单据外键）。成功 data：null。
+
+**§6.6 POST /api/users/{id}/reset-password** — 一键重置密码（admin）🆕新增(2026-06-01)
+- 无请求体。把目标用户密码重置为系统默认值 `123qwe`（常量，后端 settings.DEFAULT_RESET_PASSWORD 可配）。
+- 权限：仅 admin，且目标用户须在可见机构范围内（否则 `40300`）。
+- 成功 data：null。错误：`40400` 用户不存在；`40300` 越权。
+- 前端按钮文案为「重置密码」，点击后二次确认，无需输入。
 
 ### §7 费用项字典 🔒LOCKED
 
@@ -153,8 +160,11 @@
 **§7.3 PUT /api/expense-items/{id}** — 修改（admin）
 - 可改 name/default_qty/unit_price/unit/is_active/sort_order（均可选）。成功 data：更新后对象。
 
-**§7.4 DELETE /api/expense-items/{id}** — 软删除（admin）
-- 设 `is_active=false`。成功 data：null。
+**§7.4 DELETE /api/expense-items/{id}** — 硬删除（admin）🔄变更(2026-06-01)
+- **物理删除**该费用项字典记录（原为软删 is_active=false，应用户要求改为真删除）。
+- 费用项字典是「模板/可选项」，单据明细(ReportItem)为下单时的值快照、不引用 expense_items，故删除字典不影响已开单据。
+- 「停用」语义由 §7.3 PUT 改 `is_active=false` 承担；前端列表默认仅显示启用项。
+- 成功 data：null。错误：`40400` 不存在；`40300` 越权。
 
 ## 变更历史
 
@@ -163,6 +173,8 @@
 | 2026-05-29 15:44:00 | - | 初始化契约区 | ARCH | - |
 | 2026-05-29 17:28:00 | W1 全部 | 字段逐条锁定，置 🔒LOCKED，放行 T-003~T-006 | ARCH | 通过 |
 | 2026-05-31 22:35:53 | W2 全部 | 锁定机构CRUD(§5)/用户管理(§6)/费用项(§7)契约，置 🔒LOCKED，放行 W2 任务 | ARCH | 通过 |
+| 2026-06-01 00:10:00 | §7.4 | 费用项删除由软删改**硬删除**(用户要求) | 人类 | ARCH 采纳 |
+| 2026-06-01 00:10:00 | §6.4/§6.6 | §6.4 改密码按钮文案改「修改密码」；新增 §6.6 一键重置密码(默认123qwe) | 人类 | ARCH 采纳 |
 
 ---
-**最后更新**: 2026-05-31 22:35:53 by ARCH
+**最后更新**: 2026-06-01 00:10:00 by ARCH

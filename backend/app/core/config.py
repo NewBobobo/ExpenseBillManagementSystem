@@ -29,6 +29,9 @@ class Settings(BaseSettings):
     # 文件存储
     STORAGE_PATH: str = Field(default="./storage")
 
+    # 用户管理：一键重置密码的默认值（§6.6）
+    DEFAULT_RESET_PASSWORD: str = Field(default="123qwe")
+
     # 服务
     API_HOST: str = Field(default="0.0.0.0")
     API_PORT: int = Field(default=8000)

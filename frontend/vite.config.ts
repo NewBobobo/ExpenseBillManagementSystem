@@ -16,6 +16,11 @@ export default defineConfig({
       '/api': {
         target: 'http://localhost:8000',
         changeOrigin: true
+      },
+      // 后端上传的 Logo/公章等静态文件经 /storage 提供
+      '/storage': {
+        target: 'http://localhost:8000',
+        changeOrigin: true
       }
     }
   }
